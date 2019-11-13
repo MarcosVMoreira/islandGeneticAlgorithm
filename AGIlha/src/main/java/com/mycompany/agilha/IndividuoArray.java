@@ -16,7 +16,8 @@ public class IndividuoArray extends Individuo<int[], Float> {
 
     private double intervalo[];
     Util util = new Util();
-
+    private AlgoritmoGenetico ag = new AlgoritmoGenetico();
+    
     public IndividuoArray(int[] cromossomo) {
         super(cromossomo);
         this.intervalo = intervalo;
@@ -28,8 +29,10 @@ public class IndividuoArray extends Individuo<int[], Float> {
 
         float xChapeu = 0;
         
-        float valorDecimal = util.converteArrayDecimal(cromossomo);
-
+        double valorDecimal = util.converteArrayParaInteiro(cromossomo);
+        
+        valorDecimal = valorDecimal/(Math.pow(10,(ag.getTamanhoCromossomo()-1)));
+        
         xChapeu = (float) (valorDecimal * Math.sin(10 * valorDecimal * Math.PI) + 1);
 
         Locale.setDefault(Locale.ENGLISH);

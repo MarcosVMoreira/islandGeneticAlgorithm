@@ -7,6 +7,7 @@ public class AlgoritmoGenetico {
 
     private ArrayList<Individuo> populacao;
     private int probabilidadeMutacao;
+    private int tamanhoCromossomo = 6;
 
     public AlgoritmoGenetico(int tamanhoPopulacao,
             int probabilidadeMutacao
@@ -15,11 +16,16 @@ public class AlgoritmoGenetico {
         this.probabilidadeMutacao = probabilidadeMutacao;
         inicializarPopulacao(tamanhoPopulacao);
     }
+    
+    
+    public AlgoritmoGenetico () {
+        
+    }
 
     public void evoluir(int numGeracoes) {
         Operacoes op = new Operacoes();
         while (numGeracoes > 0) {
-            System.out.println("Geração (" + numGeracoes + ")");
+            //System.out.println("Geração (" + numGeracoes + ")");
             ArrayList<Individuo> novaPopulacao = new ArrayList<Individuo>();
             while (novaPopulacao.size() < populacao.size()) {
                 IndividuoArray i1 = (IndividuoArray) op.roleta(populacao);
@@ -43,23 +49,37 @@ public class AlgoritmoGenetico {
 
     private void inicializarPopulacao(int tamanhoPopulacao) {
         Random r = new Random();
-
-        int tamanhoCromossomo = 4;
+        int primeiroAlgorismo, randomSinal;
 
         for (int i = 0; i < tamanhoPopulacao; ++i) {
-            int cromossomo[] = new int[tamanhoCromossomo];
-            for (int j = 0; j < tamanhoCromossomo; ++j) {
+            int cromossomo[] = new int[getTamanhoCromossomo()];
+            for (int j = 0; j < getTamanhoCromossomo(); ++j) {
                 if (j == 0) {
-                    cromossomo[j] = r.nextInt(2) - 1;
-                } else if (j == 2) {
-                    cromossomo[j] = -9;
+                    primeiroAlgorismo = r.nextInt(2);
+
+                    if (primeiroAlgorismo == 0) {
+                        randomSinal = r.nextInt(2);
+                        if (randomSinal == 0) {
+                            primeiroAlgorismo = primeiroAlgorismo * -1;
+                        }
+                    }
+                    cromossomo[j] = primeiroAlgorismo;
+
                 } else {
-                    cromossomo[j] = r.nextInt(9);
+                    cromossomo[j] = r.nextInt(10);
                 }
             }
             IndividuoArray individuo = new IndividuoArray(cromossomo);
             populacao.add(individuo);
         }
+        
+    }
+
+    /**
+     * @return the tamanhoCromossomo
+     */
+    public int getTamanhoCromossomo() {
+        return tamanhoCromossomo;
     }
 
 }

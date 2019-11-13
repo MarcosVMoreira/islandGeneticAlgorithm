@@ -42,10 +42,13 @@ public class Operacoes {
             int tam = individuo.getTamanhoCromossomo();
             int pos = r.nextInt(tam);
             
-            int caracter = r.nextInt(30);
+            while (pos == 0) {
+                pos = r.nextInt(tam);
+            }
+            
+            int caracter = r.nextInt(10);
             
             individuo.setGene(pos, caracter);
-            
 
         }
 

@@ -5,6 +5,8 @@
  */
 package com.mycompany.agilha;
 
+import java.util.Random;
+
 /**
  *
  * @author Marcos
@@ -12,12 +14,16 @@ package com.mycompany.agilha;
 public class Main {
 
     public static void main(String[] args) {
-        Util util = new Util();
+
+        AlgoritmoGenetico ag = new AlgoritmoGenetico(500, 7);
+        ag.mostrarPopulacao();
+        ag.evoluir(50);
         
-        System.out.println(util.converteRacionalArray((float) 6.23));
+        System.out.println("\n\nPopulação após evolução: ");
         
-        
-        
+        ag.mostrarPopulacao();
+
+
 
     }
 }

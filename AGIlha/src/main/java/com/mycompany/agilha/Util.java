@@ -9,24 +9,34 @@ import java.util.Iterator;
 
 public class Util {
 
-    public int[] converteRacionalArray(float racional) {
+    public int[] converteInteiroParaArray(int racional) {
 
-        int[] array = {};
+        int[] array;
 
-        String stringDecimal = Float.toString(racional);
+        String stringDecimal = Integer.toString(racional);
 
         String[] ar = stringDecimal.split("");
-
+        
+        array = new int[ar.length];
+        
+        for (int i = 0; i < ar.length; i++) {
+            array[i] = Integer.parseInt(ar[i]);
+        }
 
         return array;
     }
 
-    public float converteArrayDecimal(String[] array) {
+    public int converteArrayParaInteiro(int[] array) {
 
-        String stringDecimal = array.toString();
+        String stringDoArray = "";
 
-        return Float.parseFloat(stringDecimal);
+        for (int f : array) {
+            stringDoArray = stringDoArray.concat(Integer.toString(f));
+        }
 
+        return Integer.parseInt(stringDoArray);
     }
+    
+    
 
 }
