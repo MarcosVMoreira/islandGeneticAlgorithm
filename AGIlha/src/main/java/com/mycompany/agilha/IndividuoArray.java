@@ -34,7 +34,9 @@ public class IndividuoArray extends Individuo<int[], Float> {
         valorDecimal = valorDecimal/(Math.pow(10,(ag.getTamanhoCromossomo()-1)));
         
         xChapeu = (float) (valorDecimal * Math.sin(10 * valorDecimal * Math.PI) + 1);
-
+        
+        xChapeu = xChapeu -1; //substraindo 1 do valor minimo pra pegar apenas valores abaixo do Y=0
+        
         Locale.setDefault(Locale.ENGLISH);
 
         return xChapeu;
@@ -42,7 +44,7 @@ public class IndividuoArray extends Individuo<int[], Float> {
 
     @Override
     public float getAptidao() {
-        return (float) (1  / (Math.pow(getFenotipo(), 2) + 0.001));
+        return (float) getFenotipo() * -1;
     }
 
     // Retorna o valor do gene em uma determinada posição
