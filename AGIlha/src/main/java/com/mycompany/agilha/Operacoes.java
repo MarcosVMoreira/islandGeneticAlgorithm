@@ -75,7 +75,7 @@ public class Operacoes {
             }
         }
 
-        return null;
+        return populacao.get(0);
 
     }
 
