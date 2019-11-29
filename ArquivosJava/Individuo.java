@@ -1,4 +1,3 @@
-package pacote;
 
 // Classe para representar um indivíduo no AG (Algoritmo Genético)
 public abstract class Individuo<T,E> {

@@ -1,8 +1,12 @@
-package pacote;
+
 
 import java.io.IOException;
 import java.net.DatagramSocket;
+import java.net.MalformedURLException;
 import java.net.SocketException;
+import java.rmi.Naming;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -22,14 +26,21 @@ public class AlgoritmoGenetico {
 
     }
 
-    public void evoluir(int numGeracoes, int momentoMigracao) throws IOException {
+    public void evoluir(int numGeracoes, int momentoMigracao) throws IOException,NotBoundException, MalformedURLException, RemoteException {
         Operacoes op = new Operacoes();
         int count=0;
         while (numGeracoes > 0) {
             if(count==momentoMigracao){
                 count=0;
-                populacao = op.migrarPrimeiraIlha(populacao, 4, 2000, 1500);
-                //populacao = op.migrarIlha(populacao, 4, 1500, 5000);
+                Migracao remoteObjectReference = (Migracao) Naming.lookup("rmi://127.0.0.1/Ilha2");
+                while(true){
+                    if(remoteObjectReference.getReady())break;
+                }
+                populacao = remoteObjectReference.getIndividuosMigracao(populacao, 3);
+                Migracao esseObjeto = (Migracao) Naming.lookup("rmi://127.0.0.1/Ilha1");
+                while(true){
+                    if(esseObjeto.getHas())break;
+                }
             }
             //System.out.println("Geração (" + numGeracoes + ")");
             ArrayList<Individuo> novaPopulacao = new ArrayList<Individuo>();

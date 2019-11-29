@@ -3,9 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package pacote;
+
 
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.rmi.Naming;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
 import java.util.Random;
 
 /**
@@ -14,7 +18,7 @@ import java.util.Random;
  */
 public class Main {
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, NotBoundException, MalformedURLException, RemoteException {
 
         AlgoritmoGenetico ag = new AlgoritmoGenetico(40, 7);
         ag.mostrarPopulacao();

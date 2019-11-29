@@ -1,4 +1,4 @@
-package pacote;
+
 
 import java.io.IOException;
 import java.net.DatagramPacket;
@@ -8,9 +8,6 @@ import java.net.SocketException;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.Random;
-
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
 // Classe com as operações de Algoritmos Genéticos
 public class Operacoes {
@@ -84,78 +81,8 @@ public class Operacoes {
 
     }
 
-    public ArrayList<Individuo> migrarPrimeiraIlha(ArrayList<Individuo> populacao, int migrantes,
-            int serverPortProxIlha, int serverPort) throws IOException {
-        DatagramSocket aSocket = new DatagramSocket(serverPort);
-        InetAddress serverIP = InetAddress.getByName("localhost");
-        ArrayList<Individuo> melhoresIndividuos = new ArrayList<Individuo>();
-        while(migrantes>0){
-            float maior = populacao.get(0).getAptidao();
-            IndividuoArray melhor = (IndividuoArray) populacao.get(0);
-            int index = 0;
-            for(int i=0;i<populacao.size();i++){
-                if(populacao.get(i).getAptidao()>maior){
-                    maior = populacao.get(i).getAptidao();
-                    melhor = (IndividuoArray) populacao.get(i);
-                    index = i;
-                }
-            }
-            melhoresIndividuos.add(melhor);
-            populacao.remove(index);
-            migrantes--;
-        }
-        Gson gson = new Gson();
-        String json = gson.toJson(melhoresIndividuos);
-        byte[] buffer = json.getBytes();
-        DatagramPacket send =   new DatagramPacket(buffer, buffer.length, serverIP, serverPortProxIlha);
-        aSocket.send(send);
-        byte[] receber = new byte[1000];
-        DatagramPacket request = new DatagramPacket(receber, receber.length);
-        aSocket.receive(request);
-        json = new String(request.getData(),0,request.getLength());
-        IndividuoArray[] melhores = gson.fromJson(json, IndividuoArray[].class);
-        for(int i=0;i<melhores.length;i++){
-            populacao.add(melhores[i]);
-        }
-        aSocket.close();
+    public ArrayList<Individuo> migrar(ArrayList<Individuo> populacao){
         return populacao;
     }
-
-    public ArrayList<Individuo> migrarIlha(ArrayList<Individuo> populacao, int migrantes,
-            int serverPortProxIlha, int serverPort) throws IOException {
-        DatagramSocket aSocket = new DatagramSocket(serverPort);
-        InetAddress serverIP = InetAddress.getByName("localhost");
-        ArrayList<Individuo> melhoresIndividuos = new ArrayList<Individuo>();
-        while(migrantes>0){
-            float maior = populacao.get(0).getAptidao();
-            IndividuoArray melhor = (IndividuoArray) populacao.get(0);
-            int index = 0;
-            for(int i=0;i<populacao.size();i++){
-                if(populacao.get(i).getAptidao()>maior){
-                    maior = populacao.get(i).getAptidao();
-                    melhor = (IndividuoArray) populacao.get(i);
-                    index = i;
-                }
-            }
-            melhoresIndividuos.add(melhor);
-            populacao.remove(index);
-            migrantes--;
-        }
-        Gson gson = new Gson();
-        byte[] receber = new byte[1000];
-        DatagramPacket request = new DatagramPacket(receber, receber.length);
-        aSocket.receive(request);
-        String json = new String(request.getData(),0,request.getLength());
-        String envio = gson.toJson(melhoresIndividuos);
-        byte[] buffer = envio.getBytes();
-        DatagramPacket send =   new DatagramPacket(buffer, buffer.length, serverIP, serverPortProxIlha);
-        aSocket.send(send);
-        IndividuoArray[] melhores = gson.fromJson(json, IndividuoArray[].class);
-        for(int i=0;i<melhores.length;i++){
-            populacao.add(melhores[i]);
-        }
-        aSocket.close();
-        return populacao;
-    }
-
+    
 }
