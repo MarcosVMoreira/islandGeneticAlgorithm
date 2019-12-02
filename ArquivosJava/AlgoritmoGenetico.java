@@ -26,21 +26,26 @@ public class AlgoritmoGenetico {
 
     }
 
-    public void evoluir(int numGeracoes, int momentoMigracao) throws IOException,NotBoundException, MalformedURLException, RemoteException {
+    public void evoluir(int numGeracoes, int momentoMigracao, MigracaoServer migracaoServer)throws IOException,NotBoundException, MalformedURLException, RemoteException {
         Operacoes op = new Operacoes();
         int count=0;
         while (numGeracoes > 0) {
             if(count==momentoMigracao){
                 count=0;
+                migracaoServer.setPopulacao(populacao);
+                migracaoServer.setReady(true);
                 Migracao remoteObjectReference = (Migracao) Naming.lookup("rmi://127.0.0.1/Ilha2");
                 while(true){
                     if(remoteObjectReference.getReady())break;
                 }
-                populacao = remoteObjectReference.getIndividuosMigracao(populacao, 3);
-                Migracao esseObjeto = (Migracao) Naming.lookup("rmi://127.0.0.1/Ilha1");
+                ArrayList<Individuo> melhores = remoteObjectReference.getIndividuosMigracao(3);
                 while(true){
-                    if(esseObjeto.getHas())break;
+                    if(migracaoServer.getHas())break;
                 }
+                populacao = migracaoServer.getPopulacao();
+                populacao.addAll(melhores);
+                migracaoServer.setHas(false);
+                migracaoServer.setReady(false);
             }
             //System.out.println("Geração (" + numGeracoes + ")");
             ArrayList<Individuo> novaPopulacao = new ArrayList<Individuo>();

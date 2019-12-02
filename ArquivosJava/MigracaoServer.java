@@ -10,8 +10,9 @@ public class MigracaoServer extends UnicastRemoteObject implements Migracao {
 
     private boolean ready;
     private boolean hasGetted;
+    private ArrayList<Individuo> populacao;
     
-    public ArrayList<Individuo> getIndividuosMigracao(ArrayList<Individuo> populacao, int migrantes) throws RemoteException{
+    public ArrayList<Individuo> getIndividuosMigracao(int migrantes) throws RemoteException{
         ArrayList<Individuo> melhoresIndividuos = new ArrayList<Individuo>();
         while(migrantes>0){
             float maior = populacao.get(0).getAptidao();
@@ -33,16 +34,16 @@ public class MigracaoServer extends UnicastRemoteObject implements Migracao {
         
     }
 
+    public void setPopulacao(ArrayList<Individuo> populacao) throws RemoteException{
+        this.populacao = populacao;
+    }
+
+    public ArrayList<Individuo> getPopulacao() throws RemoteException{
+        return this.populacao;
+    }
     public MigracaoServer() throws RemoteException{
         this.ready=false;
         this.hasGetted=false;
-    }
-
-    public static void main (String[] args) throws RemoteException, MalformedURLException {
-        
-        MigracaoServer migracaoServer = new MigracaoServer();
-        Naming.rebind("rmi://127.0.0.1/Ilha2", migracaoServer);
-        
     }
 
     public boolean getReady() throws RemoteException{
