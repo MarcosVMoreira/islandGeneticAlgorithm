@@ -35,12 +35,11 @@ public class AlgoritmoGenetico implements Serializable{
             if(count==momentoMigracao){
                 count=0;
                 countM++;
-                int aux = migracaoServer.getMigracao();
-                migracaoServer.setMigracao(aux++);
+                ArrayList<Individuo> aux2 = (ArrayList<Individuo>)populacao.clone();
                 System.out.println("Migracao "+countM);
-                migracaoServer.setPopulacao(populacao);
+                migracaoServer.setPopulacao(aux2);
                 migracaoServer.setReady(true);
-                Migracao remoteObjectReference = (Migracao) Naming.lookup("rmi://172.16.104.39/Ilha");
+                Migracao remoteObjectReference = (Migracao) Naming.lookup("rmi://172.16.104.32/Ilha");
                 while(true){
                     if(remoteObjectReference.getReady()&&remoteObjectReference.getMigracao()==migracaoServer.getMigracao())break;
                 }
@@ -56,6 +55,8 @@ public class AlgoritmoGenetico implements Serializable{
                 populacao.addAll(melhores);
                 System.out.println("Nova Populacao");
                 mostrarPopulacao();
+                int aux = migracaoServer.getMigracao();
+                migracaoServer.setMigracao(aux++);
                 migracaoServer.setHas(false);
                 migracaoServer.setReady(false);
             }
