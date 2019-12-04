@@ -1,6 +1,7 @@
+import java.io.Serializable;
 
 // Classe para representar um indivíduo no AG (Algoritmo Genético)
-public abstract class Individuo<T,E> {
+public abstract class Individuo<T,E> implements Serializable{
     protected T cromossomo;
     
     public Individuo(T cromossomo) {

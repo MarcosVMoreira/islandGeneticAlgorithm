@@ -11,6 +11,7 @@ public class MigracaoServer extends UnicastRemoteObject implements Migracao {
     private boolean ready;
     private boolean hasGetted;
     private ArrayList<Individuo> populacao;
+    private int migracao = 0;
     
     public ArrayList<Individuo> getIndividuosMigracao(int migrantes) throws RemoteException{
         ArrayList<Individuo> melhoresIndividuos = new ArrayList<Individuo>();
@@ -44,6 +45,7 @@ public class MigracaoServer extends UnicastRemoteObject implements Migracao {
     public MigracaoServer() throws RemoteException{
         this.ready=false;
         this.hasGetted=false;
+        migracao=0;
     }
 
     public boolean getReady() throws RemoteException{
@@ -56,6 +58,14 @@ public class MigracaoServer extends UnicastRemoteObject implements Migracao {
 
     public void setReady(boolean ready) throws RemoteException{
         this.ready=ready;
+    }
+
+    public int getMigracao() throws RemoteException{
+        return this.migracao;
+    }
+
+    public void setMigracao(int migracao) throws RemoteException{
+        this.migracao=migracao;
     }
     public void setHas(boolean has) throws RemoteException{
         this.hasGetted=has;

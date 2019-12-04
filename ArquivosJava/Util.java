@@ -5,9 +5,10 @@
  */
 
 
+import java.io.Serializable;
 import java.util.Iterator;
 
-public class Util {
+public class Util implements Serializable{
 
     public int[] converteInteiroParaArray(int racional) {
 

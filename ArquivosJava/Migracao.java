@@ -15,4 +15,8 @@ public interface Migracao extends Remote {
 
     public void setPopulacao(ArrayList<Individuo> populacao) throws RemoteException;
     public ArrayList<Individuo> getPopulacao() throws RemoteException;
+
+    public int getMigracao() throws RemoteException;
+
+    public void setMigracao(int migracao) throws RemoteException;
 }

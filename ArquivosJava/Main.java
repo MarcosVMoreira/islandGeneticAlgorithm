@@ -19,11 +19,12 @@ import java.util.Scanner;
 public class Main {
 
     public static void main(String[] args) throws IOException, NotBoundException, MalformedURLException, RemoteException {
+        System.setProperty("java.rmi.server.hostname", "172.16.104.32");
         MigracaoServer migracaoServer = new MigracaoServer();
-        Naming.rebind("rmi://127.0.0.1/Ilha", migracaoServer);
+        Naming.rebind("rmi://172.16.104.32/Ilha", migracaoServer);
         Scanner sc = new Scanner(System.in);
         sc.nextLine();
-        AlgoritmoGenetico ag = new AlgoritmoGenetico(40, 7);
+        AlgoritmoGenetico ag = new AlgoritmoGenetico(40, 6);
         ag.mostrarPopulacao();
         ag.evoluir(50,5, migracaoServer);
         
