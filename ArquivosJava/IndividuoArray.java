@@ -1,7 +1,6 @@
 
-
-
 import java.util.Locale;
+import java.util.Random;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -30,6 +29,13 @@ public class IndividuoArray extends Individuo<int[], Float> {
         float xChapeu = 0;
         
         double valorDecimal = util.converteArrayParaInteiro(cromossomo);
+        if(cromossomo[0]==0){
+            Random r = new Random();
+            int randomSinal = r.nextInt(2);
+                if (randomSinal == 0) {
+                    valorDecimal*=-1;
+                }
+        }
         
         valorDecimal = valorDecimal/(Math.pow(10,(ag.getTamanhoCromossomo()-1)));
         

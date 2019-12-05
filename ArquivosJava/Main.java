@@ -24,7 +24,7 @@ public class Main {
         Naming.rebind("rmi://172.16.104.39/Ilha", migracaoServer);
         Scanner sc = new Scanner(System.in);
         sc.nextLine();
-        AlgoritmoGenetico ag = new AlgoritmoGenetico(10, 8);
+        AlgoritmoGenetico ag = new AlgoritmoGenetico(120, 4);
         ag.mostrarPopulacao();
         ag.evoluir(50,5, migracaoServer);
         

@@ -31,6 +31,7 @@ public class MigracaoServer extends UnicastRemoteObject implements Migracao {
             migrantes--;
         }
         this.hasGetted = true;
+        this.ready = false;
         return melhoresIndividuos;
         
     }
