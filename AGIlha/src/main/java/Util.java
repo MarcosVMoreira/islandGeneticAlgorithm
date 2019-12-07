@@ -3,11 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.mycompany.agilha;
 
+
+import java.io.Serializable;
 import java.util.Iterator;
 
-public class Util {
+public class Util implements Serializable{
 
     public int[] converteInteiroParaArray(int racional) {
 

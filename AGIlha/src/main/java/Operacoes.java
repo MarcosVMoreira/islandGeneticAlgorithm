@@ -1,5 +1,11 @@
-package com.mycompany.agilha;
 
+
+import java.io.IOException;
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
+import java.net.InetAddress;
+import java.net.SocketException;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -7,9 +13,7 @@ import java.util.Random;
 public class Operacoes {
 
     // Efetua o crossover entre dois indivíduos
-    public IndividuoArray[] crossover(
-            IndividuoArray i1,
-            IndividuoArray i2) {
+    public IndividuoArray[] crossover(IndividuoArray i1, IndividuoArray i2) {
 
         int tam = i1.getTamanhoCromossomo();
 
@@ -17,8 +21,7 @@ public class Operacoes {
         int pontoCorte = r.nextInt(tam);
 
         IndividuoArray ni1 = i1.clonar();
-        i2.clonar();
-        
+
         IndividuoArray ni2 = i2.clonar();
 
         for (int i = pontoCorte; i < tam; ++i) {
@@ -26,14 +29,13 @@ public class Operacoes {
             ni2.setGene(i, i1.getGene(i));
         }
 
-        return new IndividuoArray[]{ni1, ni2};
+        return new IndividuoArray[] { ni1, ni2 };
 
     }
 
     // Método para efetuar a mutação sobre um indivíduo
     // o parâmetro probabilidade assume um valor [0,100]
-    public void mutacao(IndividuoArray individuo,
-            int probabilidade) {
+    public void mutacao(IndividuoArray individuo, int probabilidade) {
 
         Random r = new Random();
 
@@ -41,13 +43,13 @@ public class Operacoes {
         if (probabilidade >= valorAleatorio) {
             int tam = individuo.getTamanhoCromossomo();
             int pos = r.nextInt(tam);
-            
+
             while (pos == 0) {
                 pos = r.nextInt(tam);
             }
-            
+
             int caracter = r.nextInt(10);
-            
+
             individuo.setGene(pos, caracter);
 
         }
@@ -79,4 +81,8 @@ public class Operacoes {
 
     }
 
+    public ArrayList<Individuo> migrar(ArrayList<Individuo> populacao){
+        return populacao;
+    }
+    
 }
